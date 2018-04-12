@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150123013225) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string   "text",       limit: 255
+    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,28 +25,28 @@ ActiveRecord::Schema.define(version: 20150123013225) do
   add_index "addresses", ["text"], name: "index_addresses_on_text", using: :btree
 
   create_table "admins", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: ""
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: ""
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "invitation_token",       limit: 255
+    t.string   "invitation_token"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
-    t.string   "invited_by_type",        limit: 255
+    t.string   "invited_by_type"
     t.datetime "invitation_created_at"
-    t.integer  "team_id",                                            null: false
-    t.string   "name",                   limit: 255
-    t.boolean  "super_admin",                        default: false, null: false
+    t.integer  "team_id",                                null: false
+    t.string   "name"
+    t.boolean  "super_admin",            default: false, null: false
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
@@ -56,21 +56,21 @@ ActiveRecord::Schema.define(version: 20150123013225) do
   add_index "admins", ["team_id"], name: "index_admins_on_team_id", using: :btree
 
   create_table "apps", force: :cascade do |t|
-    t.string   "smtp_username",             limit: 255
-    t.string   "name",                      limit: 255
-    t.string   "smtp_password",             limit: 255
-    t.string   "custom_tracking_domain",    limit: 255
+    t.string   "smtp_username"
+    t.string   "name"
+    t.string   "smtp_password"
+    t.string   "custom_tracking_domain"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "smtp_password_locked",                  default: false, null: false
-    t.boolean  "open_tracking_enabled",                 default: true,  null: false
-    t.boolean  "click_tracking_enabled",                default: true,  null: false
+    t.boolean  "smtp_password_locked",      default: false, null: false
+    t.boolean  "open_tracking_enabled",     default: true,  null: false
+    t.boolean  "click_tracking_enabled",    default: true,  null: false
     t.text     "dkim_private_key"
-    t.string   "from_domain",               limit: 255
-    t.boolean  "dkim_enabled",                          default: false, null: false
-    t.integer  "archived_deliveries_count",             default: 0,     null: false
+    t.string   "from_domain"
+    t.boolean  "dkim_enabled",              default: false, null: false
+    t.integer  "archived_deliveries_count", default: 0,     null: false
     t.integer  "team_id"
-    t.boolean  "cuttlefish",                            default: false, null: false
+    t.boolean  "cuttlefish",                default: false, null: false
   end
 
   add_index "apps", ["team_id"], name: "index_apps_on_team_id", using: :btree
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150123013225) do
     t.integer  "delivery_link_id"
     t.text     "user_agent"
     t.text     "referer"
-    t.string   "ip",               limit: 255
+    t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,11 +101,11 @@ ActiveRecord::Schema.define(version: 20150123013225) do
     t.integer  "address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "sent",                          default: false, null: false
-    t.string   "postfix_queue_id",  limit: 255
-    t.boolean  "open_tracked",                  default: false, null: false
-    t.integer  "open_events_count",             default: 0,     null: false
-    t.string   "status",            limit: 255,                 null: false
+    t.boolean  "sent",              default: false, null: false
+    t.string   "postfix_queue_id"
+    t.boolean  "open_tracked",      default: false, null: false
+    t.integer  "open_events_count", default: 0,     null: false
+    t.string   "status",                            null: false
     t.integer  "app_id"
   end
 
@@ -131,10 +131,10 @@ ActiveRecord::Schema.define(version: 20150123013225) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "from_address_id"
-    t.string   "message_id",      limit: 255
-    t.string   "data_hash",       limit: 255
-    t.integer  "app_id",                      null: false
-    t.string   "subject",         limit: 255
+    t.string   "message_id"
+    t.string   "data_hash"
+    t.integer  "app_id",          null: false
+    t.string   "subject"
   end
 
   add_index "emails", ["app_id"], name: "index_emails_on_app_id", using: :btree
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20150123013225) do
   add_index "emails", ["message_id"], name: "index_emails_on_message_id", using: :btree
 
   create_table "links", force: :cascade do |t|
-    t.string   "url",        limit: 255, null: false
+    t.string   "url",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -156,11 +156,11 @@ ActiveRecord::Schema.define(version: 20150123013225) do
     t.datetime "updated_at"
     t.text     "user_agent"
     t.text     "referer"
-    t.string   "ip",          limit: 255
-    t.string   "ua_family",   limit: 255
-    t.string   "ua_version",  limit: 255
-    t.string   "os_family",   limit: 255
-    t.string   "os_version",  limit: 255
+    t.string   "ip"
+    t.string   "ua_family"
+    t.string   "ua_version"
+    t.string   "os_family"
+    t.string   "os_version"
   end
 
   add_index "open_events", ["delivery_id"], name: "index_open_events_on_delivery_id", using: :btree
@@ -168,13 +168,13 @@ ActiveRecord::Schema.define(version: 20150123013225) do
   create_table "postfix_log_lines", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "time",                        null: false
-    t.string   "relay",           limit: 255, null: false
-    t.string   "delay",           limit: 255, null: false
-    t.string   "delays",          limit: 255, null: false
-    t.string   "dsn",             limit: 255, null: false
-    t.text     "extended_status",             null: false
-    t.integer  "delivery_id",                 null: false
+    t.datetime "time",            null: false
+    t.string   "relay",           null: false
+    t.string   "delay",           null: false
+    t.string   "delays",          null: false
+    t.string   "dsn",             null: false
+    t.text     "extended_status", null: false
+    t.integer  "delivery_id",     null: false
   end
 
   add_index "postfix_log_lines", ["delivery_id"], name: "index_postfix_log_lines_on_delivery_id", using: :btree
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20150123013225) do
     t.datetime "updated_at"
   end
 
-  add_foreign_key "emails", "addresses", column: "from_address_id", name: "emails_from_address_id_fk"
-  add_foreign_key "emails", "apps", name: "emails_app_id_fk", on_delete: :cascade
-  add_foreign_key "postfix_log_lines", "deliveries", name: "postfix_log_lines_delivery_id_fk", on_delete: :cascade
+  add_foreign_key "emails", "addresses", column: "from_address_id"
+  add_foreign_key "emails", "apps"
+  add_foreign_key "postfix_log_lines", "deliveries"
 end

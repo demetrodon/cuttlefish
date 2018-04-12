@@ -14,6 +14,9 @@
 # Ignore .env.development so people can set their own env variables
 .env.development
 
+# Ignore rubymine files
+/.idea
+
 cuttlefish.sublime-workspace
 db/emails/development
 db/archive
